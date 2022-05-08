@@ -80,13 +80,12 @@ int main()
     glDispatchCompute((w+15)/16, (h+15)/16, 1);
 
     glMemoryBarrier(GL_TEXTURE_UPDATE_BARRIER_BIT); // make sure the output image has been written
-    glFinish();
     
     u8* img = new u8[w * h * 4];
     glBindTexture(GL_TEXTURE_2D, outTex);
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA_INTEGER, GL_UNSIGNED_BYTE, img);
-    stbi_write_png("imgs/out.png", w, h, 1, img, w*4);
+    stbi_write_png("imgs/out.png", w, h, 4, img, w*4);
     delete[] img;
 
     while (!glfwWindowShouldClose(window))
