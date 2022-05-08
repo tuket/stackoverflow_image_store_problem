@@ -16,7 +16,7 @@ R"GLSL(
 layout (local_size_x = KS, local_size_y = KS) in;
 
 layout(location = 0) uniform sampler2D u_inputTex;
-layout(location = 1) uniform writeonly image2D u_outImg;
+layout(location = 1) uniform writeonly uimage2D u_outImg;
 
 void main()
 {
@@ -25,8 +25,7 @@ void main()
 	const ivec2 pixelPos = ivec2(KS) * gid + tid;
 
 	imageStore(u_outImg, pixelPos,
-		vec4(texelFetch(u_inputTex, pixelPos, 0).rgb, 255u));
-		//uvec4(1u));
+		uvec4(255.0 * texelFetch(u_inputTex, pixelPos, 0).rgb, 255u));
 }
 )GLSL";
 

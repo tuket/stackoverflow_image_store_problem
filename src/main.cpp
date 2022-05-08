@@ -79,7 +79,8 @@ int main()
 
     glDispatchCompute((w+15)/16, (h+15)/16, 1);
 
-    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT); // make sure the output image has been written
+    glMemoryBarrier(GL_TEXTURE_UPDATE_BARRIER_BIT); // make sure the output image has been written
+    glFinish();
     
     u8* img = new u8[w * h * 4];
     glBindTexture(GL_TEXTURE_2D, outTex);
